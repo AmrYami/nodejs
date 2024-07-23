@@ -5,9 +5,7 @@ const mongoose = require("mongoose");
 // const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
-
 async function seedAdmin() {
-
   await mongoose.connect("mongodb://localhost:27017/mydb", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -15,15 +13,15 @@ async function seedAdmin() {
 
   // Check if admin already exists
   const existingAdmin = await User.findOne({ role: "admin" });
-console.log(existingAdmin);
+  console.log(existingAdmin);
   if (!existingAdmin) {
     // Create admin credentials
     const adminCredentials = {
       name: "Admin User",
-      email: "admin@base.com",
+      email: "admin@gmail.com",
       password: "adminpassword",
-      phone: "01557011197",
-      role: 'admin',
+      phone: "01557011198",
+      role: "admin",
     };
 
     // Create admin user
@@ -38,10 +36,12 @@ console.log(existingAdmin);
 }
 
 // Execute the admin seeder
-seedAdmin().then(() => {
-  console.log("Admin seeding completed");
-  process.exit(0);
-}).catch((err) => {
-  console.error("Error seeding admin:", err);
-  process.exit(1);
-});
+seedAdmin()
+  .then(() => {
+    console.log("Admin seeding completed");
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error("Error seeding admin:", err);
+    process.exit(1);
+  });

@@ -16,6 +16,8 @@ const {
 } = require("../utils/validators/blogValidator");
 const subblogsRoute = require("./subBlogRoute");
 
+const authService = require("../services/authService");
+
 const router = express.Router();
 
 // router.post('/', createBlog);
@@ -24,11 +26,14 @@ const router = express.Router();
 // router.put('/:id', updateBlog);
 // router.delete('/:id', deleteBlog);
 router.use("/:blogId/subblogs", subblogsRoute);
-router.route("/").get(getBlogs).post(createBlogValidator, createBlog);
+router
+  .route("/")
+  .get(getBlogs)
+  .post(authService.protect, createBlogValidator, createBlog);
 router
   .route("/:id")
   .get(getBlogValidator, getBlog)
-  .put(updateBlogValidator, updateBlog)
-  .delete(deleteBlogValidator, deleteBlog);
+  .put(authService.protect, updateBlogValidator, updateBlog)
+  .delete(authService.protect, deleteBlogValidator, deleteBlog);
 // router.route('/').post(createBlog);
 module.exports = router;

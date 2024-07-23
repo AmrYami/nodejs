@@ -25,7 +25,6 @@ if (process.env.NODE_ENV == "development") {
 // mount routes
 app.use("/api/v1/blogs", blogRoute);
 app.use("/api/v1/subblogs", subBlogRoute);
-app.use("/api/v1/subblogs", subBlogRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
 // if route doesnt exist
