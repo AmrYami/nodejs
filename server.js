@@ -8,6 +8,8 @@ const dbConnection = require("./config/database");
 const blogRoute = require("./routes/blogsRoute");
 const subBlogRoute = require("./routes/subBlogRoute");
 const ApiErors = require("./utils/ApiErors");
+const userRoute = require("./routes/userRoute");
+const authRoute = require("./routes/authRoute");
 
 // Connect with db
 dbConnection();
@@ -23,7 +25,8 @@ if (process.env.NODE_ENV == "development") {
 app.use("/api/v1/blogs", blogRoute);
 app.use("/api/v1/subblogs", subBlogRoute);
 app.use("/api/v1/subblogs", subBlogRoute);
-
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/auth", authRoute);
 // if route doesnt exist
 app.all("*", (req, res, next) => {
   next(new ApiErors(`Can't find this route: ${req.originalUrl}`, 400));
