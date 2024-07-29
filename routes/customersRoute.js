@@ -5,6 +5,7 @@ const {
   createCustomer,
   getCustomers,
   getCustomer,
+  createProduct,
   updateCustomer,
   deleteCustomer,
 } = require("../services/customerService");
@@ -28,5 +29,5 @@ router
   .get(getCustomer)
   .put(authService.protect, updateCustomerValidator, updateCustomer)
   .delete(authService.protect, deleteCustomerValidator, deleteCustomer);
-// router.route('/').post(createCustomer);
+router.route("/product").post(createProduct);
 module.exports = router;

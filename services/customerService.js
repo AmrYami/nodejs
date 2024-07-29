@@ -29,6 +29,28 @@ exports.createCustomer = asyncHandler(async (req, res) => {
   res.status(201).json({ data: customer });
 });
 
+exports.createProduct = asyncHandler(async (req, res) => {
+  const name = req.body.name;
+  const description = req.body.description;
+  const unit_amount = req.body.unit_amount;
+  const currency = req.body.currency;
+  const recurring = req.body.recurring;
+  const product = await stripe.products.create({
+    name: name,
+    description: description,
+  });
+  const price = await stripe.prices.create({
+    unit_amount: unit_amount,
+    currency: currency,
+    recurring: {
+      interval: recurring,
+    },
+    product: product.id,
+  });
+
+  res.status(201).json({ data: product });
+});
+
 exports.getCustomers = asyncHandler(async (req, res) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 5;
