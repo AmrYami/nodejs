@@ -3,6 +3,7 @@ const BlogModel = require("../models/blogModels");
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
 const ApiErors = require("../utils/ApiErors");
+const stripe = require("stripe")(process.env.STRIPE_TOKEN);
 
 // exports.createBlog = (req, res) => {
 //     const name = req.body.name;

@@ -7,6 +7,7 @@ const globalError = require("./middlewares/errorMiddleware");
 
 const dbConnection = require("./config/database");
 const blogRoute = require("./routes/blogsRoute");
+const customerRoute = require("./routes/customersRoute");
 const subBlogRoute = require("./routes/subBlogRoute");
 const ApiErors = require("./utils/ApiErors");
 const userRoute = require("./routes/userRoute");
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV == "development") {
 }
 
 // mount routes
+app.use("/api/v1/customers", customerRoute);
 app.use("/api/v1/blogs", blogRoute);
 app.use("/api/v1/subblogs", subBlogRoute);
 app.use("/api/v1/users", userRoute);
