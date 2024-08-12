@@ -71,10 +71,28 @@ exports.getCustomer = asyncHandler(async (req, res, next) => {
 
 exports.updateCustomer = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const { name } = req.body;
+  let param = {};
+  param.name = req.body.name;
+  param.phone = req.body.phone;
+  param.email = req.body.email;
+
+
+  const customerData = stripe.customers.update(
+    id,
+    param,
+    function(err, customer) {
+        // asynchronously called
+        if(err) {
+            console.log(err);
+            // res('REQUEST ERROR');
+        } 
+});
+
+// const customer_id = customerStripe.id;
+
   const customer = await CustomerModel.findOneAndUpdate(
-    { _id: id },
-    { name, slug: slugify(name) },
+    { customer_id: id },
+    param,
     { new: true }
   );
   if (!customer) {

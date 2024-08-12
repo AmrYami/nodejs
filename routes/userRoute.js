@@ -22,7 +22,7 @@ const {
   updateLoggedUserPassword,
   updateLoggedUserData,
   deleteLoggedUserData,
-} = require("../services/userService");
+} = require("../services/userServiceOld");
 
 const authService = require("../services/authService");
 

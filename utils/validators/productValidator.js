@@ -2,19 +2,36 @@
 const { check } = require("express-validator");
 const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 
-exports.getCustomerValidator = [
-  check("id").isMongoId().withMessage("Invalid customer id format"),
+exports.getProductValidator = [
+  check("id").isMongoId().withMessage("Invalid product id format"),
   validatorMiddleware,
 ];
 
-exports.createCustomerValidator = [
+exports.createProductValidator = [
   check("name")
     .notEmpty()
-    .withMessage("Customer required")
+    .withMessage("name required")
     .isLength({ min: 2 })
-    .withMessage("Too short customer name")
+    .withMessage("Too short product name")
     .isLength({ max: 32 })
-    .withMessage("Too long customer name"),
+    .withMessage("Too long product name"),
+  validatorMiddleware,
+
+  check("description")
+    .notEmpty()
+    .withMessage("Email required")
+    .isEmail()
+    .withMessage("Invalid email address")
+];
+
+exports.updateProductValidator = [
+  check("name")
+    .notEmpty()
+    .withMessage("Product required")
+    .isLength({ min: 2 })
+    .withMessage("Too short product name")
+    .isLength({ max: 32 })
+    .withMessage("Too long product name"),
   validatorMiddleware,
 
   check("email")
@@ -36,36 +53,7 @@ exports.createCustomerValidator = [
     .withMessage("Invalid phone number only accepted Egy and SA Phone numbers"),
 ];
 
-exports.updateCustomerValidator = [
-  check("name")
-    .notEmpty()
-    .withMessage("Customer required")
-    .isLength({ min: 2 })
-    .withMessage("Too short customer name")
-    .isLength({ max: 32 })
-    .withMessage("Too long customer name"),
-  validatorMiddleware,
-
-  check("email")
-    .notEmpty()
-    .withMessage("Email required")
-    .isEmail()
-    .withMessage("Invalid email address")
-    .custom((val) =>
-      User.findOne({ email: val }).then((user) => {
-        if (user) {
-          return Promise.reject(new Error("E-mail already in user"));
-        }
-      })
-    ),
-
-  check("phone")
-    .optional()
-    .isMobilePhone(["ar-EG", "ar-SA"])
-    .withMessage("Invalid phone number only accepted Egy and SA Phone numbers"),
-];
-
-exports.deleteCustomerValidator = [
-  check("id").isMongoId().withMessage("Invalid customer id format"),
+exports.deleteProductValidator = [
+  check("id").isMongoId().withMessage("Invalid product id format"),
   validatorMiddleware,
 ];
