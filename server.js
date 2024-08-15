@@ -9,6 +9,10 @@ const dbConnection = require("./config/database");
 const blogRoute = require("./routes/blogsRoute");
 const customerRoute = require("./routes/customersRoute");
 const productsRoute = require("./routes/productsRoute");
+const cardsRoute = require("./routes/cardsRoute");
+const plansRoute = require("./routes/plansRoute");
+const paymentsRoute = require("./routes/paymentRoute");
+const subscriptionsRoute = require("./routes/subscriptionsRoute");
 const featuresRoute = require("./routes/featuresRoute");
 const subBlogRoute = require("./routes/subBlogRoute");
 const ApiErors = require("./utils/ApiErors");
@@ -28,6 +32,10 @@ if (process.env.NODE_ENV == "development") {
 // mount routes
 app.use("/api/v1/customers", customerRoute);
 app.use("/api/v1/products", productsRoute);
+app.use("/api/v1/cards", cardsRoute);
+app.use("/api/v1/plans", plansRoute);
+app.use("/api/v1/payments", paymentsRoute);
+app.use("/api/v1/subscriptions", subscriptionsRoute);
 app.use("/api/v1/feature", featuresRoute);
 app.use("/api/v1/blogs", blogRoute);
 app.use("/api/v1/subblogs", subBlogRoute);
